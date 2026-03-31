@@ -4,6 +4,47 @@ Personal reference: mapping the OWASP Top 10 for LLM Applications (2025) against
 
 > The Agentic list **complements** (not replaces) the LLM list. The LLM Top 10 secures a single model's inputs/outputs; the Agentic Top 10 secures autonomous **systems** that plan, use tools, have memory, and communicate with other agents.
 
+## Architecture
+
+```mermaid
+graph TD
+    subgraph "OWASP LLM Top 10 — 2025"
+        L1[Prompt Injection]
+        L2[Sensitive Info Disclosure]
+        L3[Supply Chain]
+        L4[Data Poisoning]
+        L5[Improper Output]
+        L6[Excessive Agency]
+    end
+
+    subgraph "OWASP Agentic Top 10 — 2026"
+        A1[Agent Goal Hijack]
+        A2[Tool Misuse]
+        A3[Identity & Privilege Abuse]
+        A4[Agentic Supply Chain]
+        A5[Unexpected Code Exec]
+        A6[Memory Poisoning]
+        A7[Insecure Inter-Agent Comms]
+        A8[Cascading Failures]
+        A9[Human Trust Exploitation]
+        A10[Rogue Agents]
+    end
+
+    L1 -->|evolves to| A1
+    L2 -->|splits into| A2
+    L2 -->|splits into| A3
+    L3 -->|evolves to| A4
+    L5 -->|evolves to| A5
+    L4 -->|evolves to| A6
+    L6 -->|evolves to| A2
+
+    style A7 fill:#c62828,stroke:#b71c1c,color:#fff
+    style A8 fill:#c62828,stroke:#b71c1c,color:#fff
+    style A10 fill:#c62828,stroke:#b71c1c,color:#fff
+```
+
+> Red items are **new attack surfaces** with no direct LLM equivalent.
+
 ## Comparison Table
 
 | # | LLM Top 10 (2025) | Agentic AI Top 10 (2026) | Microsoft Mitigation Tooling |
