@@ -80,9 +80,39 @@ graph LR
     style A10 fill:#c62828,stroke:#b71c1c,color:#fff
     classDef msBlue fill:#0078d4,stroke:#005a9e,color:#fff
     class M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11 msBlue
+
+    click L1 callback "Crafted inputs that trick a model into ignoring instructions or leaking data"
+    click L2 callback "Model inadvertently reveals PII, credentials, or proprietary training data"
+    click L3 callback "Compromised models, datasets, or third-party plugins introduced via the build pipeline"
+    click L4 callback "Malicious manipulation of training or fine-tuning data to skew model behaviour"
+    click L5 callback "Unvalidated model output executed downstream as code, SQL, or markup"
+    click L6 callback "Model granted more autonomy or permissions than the task requires"
+
+    click A1 callback "Prompt injection that hijacks an autonomous agent into chaining harmful actions"
+    click A2 callback "Agents abuse legitimately granted tools in unintended or dangerous ways"
+    click A3 callback "Agents inherit, escalate, or misuse identity tokens and access privileges"
+    click A4 callback "Compromised plugins, MCP servers, or orchestration layers in the agent stack"
+    click A5 callback "Agents dynamically generate and execute code, risking RCE or sandbox escape"
+    click A6 callback "Persistent agent memory or RAG stores poisoned with adversarial content"
+    click A7 callback "Spoofing, replay, or man-in-the-middle attacks on agent-to-agent messaging"
+    click A8 callback "A single bad input propagates unchecked across interconnected agent systems"
+    click A9 callback "Users blindly trust agent outputs, enabling social engineering and manipulation"
+    click A10 callback "Agents escape guardrails, self-replicate, or operate outside defined boundaries"
+
+    click M1 callback "Prompt Shields, groundedness detection, and harm-category classifiers for AI I/O"
+    click M2 callback "Agent ID, Workload ID, Conditional Access, and CIEM for agent identity governance"
+    click M3 callback "GenAI Gateway with rate limiting, JWT validation, circuit-breaker, and mTLS policies"
+    click M4 callback "AI threat protection, AI-SPM attack-path analysis, and runtime anomaly detection"
+    click M5 callback "DLP, sensitivity labels, information protection, and audit trails for data governance"
+    click M6 callback "AI Registry — vetted catalog of approved MCP servers, plugins, and agent tools"
+    click M7 callback "Dependency scanning, secret scanning, and code scanning on agent source code"
+    click M8 callback "Sandboxed Hyper-V code interpreter sessions for safe dynamic code execution"
+    click M9 callback "Correlated cross-workflow threat detection, distributed tracing, and observability"
+    click M10 callback "Automated evaluations for groundedness, coherence, and agent fleet control plane"
+    click M11 callback "Low-code agent builder with built-in human-in-the-loop approval workflows"
 ```
 
-> **Red** = new attack surfaces with no direct LLM equivalent. **Blue** = Microsoft mitigation tooling. Solid arrows show risk evolution; dotted arrows show primary mitigations (see table below for full mapping).
+> **Red** = new attack surfaces with no direct LLM equivalent. **Blue** = Microsoft mitigation tooling. Solid arrows show risk evolution; dotted arrows show primary mitigations (see table below for full mapping). Hover over any node for a one-liner description.
 
 ## Comparison Table
 
