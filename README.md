@@ -7,8 +7,8 @@ Personal reference: mapping the OWASP Top 10 for LLM Applications (2025) against
 ## Architecture
 
 ```mermaid
-graph TD
-    subgraph "OWASP LLM Top 10 — 2025"
+graph LR
+    subgraph LLM["OWASP LLM Top 10 (2025)"]
         L1[Prompt Injection]
         L2[Sensitive Info Disclosure]
         L3[Supply Chain]
@@ -17,7 +17,7 @@ graph TD
         L6[Excessive Agency]
     end
 
-    subgraph "OWASP Agentic Top 10 — 2026"
+    subgraph AGT["OWASP Agentic Top 10 (2026)"]
         A1[Agent Goal Hijack]
         A2[Tool Misuse]
         A3[Identity & Privilege Abuse]
@@ -30,6 +30,20 @@ graph TD
         A10[Rogue Agents]
     end
 
+    subgraph MS["Microsoft Mitigations"]
+        M1[AI Content Safety]
+        M2[Microsoft Entra]
+        M3[Azure API Management]
+        M4[Defender for Cloud]
+        M5[Microsoft Purview]
+        M6[Azure API Center]
+        M7[GitHub Advanced Security]
+        M8[Container Apps Sessions]
+        M9[Defender XDR + Monitor]
+        M10[Azure AI Foundry]
+        M11[Copilot Studio]
+    end
+
     L1 -->|evolves to| A1
     L2 -->|splits into| A2
     L2 -->|splits into| A3
@@ -38,12 +52,37 @@ graph TD
     L4 -->|evolves to| A6
     L6 -->|evolves to| A2
 
+    A1 -.-> M1
+    A1 -.-> M4
+    A2 -.-> M3
+    A2 -.-> M6
+    A3 -.-> M2
+    A3 -.-> M4
+    A4 -.-> M7
+    A4 -.-> M6
+    A5 -.-> M8
+    A5 -.-> M4
+    A6 -.-> M1
+    A6 -.-> M5
+    A6 -.-> M10
+    A7 -.-> M2
+    A7 -.-> M3
+    A8 -.-> M3
+    A8 -.-> M9
+    A9 -.-> M5
+    A9 -.-> M10
+    A9 -.-> M11
+    A10 -.-> M4
+    A10 -.-> M2
+
     style A7 fill:#c62828,stroke:#b71c1c,color:#fff
     style A8 fill:#c62828,stroke:#b71c1c,color:#fff
     style A10 fill:#c62828,stroke:#b71c1c,color:#fff
+    classDef msBlue fill:#0078d4,stroke:#005a9e,color:#fff
+    class M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11 msBlue
 ```
 
-> Red items are **new attack surfaces** with no direct LLM equivalent.
+> **Red** = new attack surfaces with no direct LLM equivalent. **Blue** = Microsoft mitigation tooling. Solid arrows show risk evolution; dotted arrows show primary mitigations (see table below for full mapping).
 
 ## Comparison Table
 
