@@ -138,52 +138,52 @@ Each video is ~60 seconds and covers: the 2025 LLM predecessor → how it evolve
 <a id="asi01"></a>
 ### ASI01 — Agent Goal Hijack
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI01.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI01.mp4"></video>
 
 <a id="asi02"></a>
 ### ASI02 — Tool Misuse & Exploitation
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI02.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI02.mp4"></video>
 
 <a id="asi03"></a>
 ### ASI03 — Identity & Privilege Abuse
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI03.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI03.mp4"></video>
 
 <a id="asi04"></a>
 ### ASI04 — Agentic Supply Chain
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI04.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI04.mp4"></video>
 
 <a id="asi05"></a>
 ### ASI05 — Unexpected Code Execution
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI05.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI05.mp4"></video>
 
 <a id="asi06"></a>
 ### ASI06 — Memory & Context Poisoning
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI06.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI06.mp4"></video>
 
 <a id="asi07"></a>
 ### ASI07 — Insecure Inter-Agent Communication
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI07.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI07.mp4"></video>
 
 <a id="asi08"></a>
 ### ASI08 — Cascading Failures
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI08.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI08.mp4"></video>
 
 <a id="asi09"></a>
 ### ASI09 — Human-Agent Trust Exploitation
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI09.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI09.mp4"></video>
 
 <a id="asi10"></a>
 ### ASI10 — Rogue Agents
 
-https://github.com/adstuart/owasp-agentic-reference/raw/master/videos/ASI10.mp4
+<video controls width="640" src="https://github.com/adstuart/owasp-agentic-reference/releases/download/videos-v1/ASI10.mp4"></video>
 
 ## Key Takeaways
 
