@@ -52,6 +52,12 @@ graph LR
     L4 -->|evolves to| A6
     L6 -->|evolves to| A2
 
+    NEW[/"red = new agentic attack surface<br/>(no clean LLM ancestor)"/]
+    NEW -.-> A7
+    NEW -.-> A8
+    NEW -.-> A10
+    style NEW fill:transparent,stroke:#c62828,stroke-dasharray:4 3,color:#c62828
+
     A1 -.-> M1
     A1 -.-> M4
     A2 -.-> M3
