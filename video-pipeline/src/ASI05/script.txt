@@ -1,0 +1,9 @@
+Threat number five: Unexpected Code Execution.
+
+In the 2025 LLM Top Ten this was improper output handling — unvalidated model output executed downstream as code, S Q L, or markup.
+
+With agents, code execution is a feature, not a bug. Code-interpreter tools are a standard part of the agent toolbelt. The agent writes, runs and iterates on code with minimal oversight, and one bad plan means remote code execution or a sandbox escape on your infrastructure.
+
+My top mitigation is Azure Container Apps Dynamic Sessions. It gives you Hyper-V isolated, disposable sandboxes for agent-generated code. Every session is fresh, tightly scoped, and torn down after use.
+
+Add Defender for Cloud runtime threat detection over the top, so anomalous process, network, and file activity in the sandbox gets surfaced as an incident.

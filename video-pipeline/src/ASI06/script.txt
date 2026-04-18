@@ -1,0 +1,9 @@
+Threat number six: Memory and Context Poisoning.
+
+In 2025 we worried about excessive agency — a model granted more autonomy or permissions than the task actually required.
+
+In 2026, agents carry that autonomy forward through persistent memory. Vector stores, session state, preference files. Attackers now plant adversarial content that the agent retrieves days or weeks later. Poisoned context bypasses content filters because it already looks like trusted history.
+
+My top mitigation is Azure A I Content Safety Groundedness Detection. It flags agent outputs that drift from the retrieved source, giving you an early signal that memory or a R A G index has been poisoned.
+
+Combine that with Microsoft Purview Information Protection. Sensitivity labels and D L P on documents entering R A G pipelines stop untrusted content becoming trusted context.

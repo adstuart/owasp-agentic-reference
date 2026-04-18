@@ -1,0 +1,9 @@
+Threat number eight: Cascading Failures. Another brand-new attack surface.
+
+The 2025 analogue was vector and embedding weaknesses — adversarial inputs distorting retrieval results for a single query.
+
+In an agentic system, agents chain into other agents. Failures compound, they do not isolate. One bad output becomes the next agent's trusted input. Without circuit breakers, a small glitch scales into a systemic outage across your entire fleet in seconds.
+
+My top mitigation is Azure A P I Management. Circuit-breaker and retry-backoff policies on inter-agent calls stop a single misbehaving agent from pulling the whole mesh down with it.
+
+Pair that with Microsoft Defender X D R. It correlates signals across workflows, so the cascade shows up as one incident, not ten disconnected alerts.

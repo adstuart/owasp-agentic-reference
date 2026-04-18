@@ -1,0 +1,9 @@
+Threat number three: Identity and Privilege Abuse.
+
+In the 2025 LLM list this was supply chain vulnerabilities — compromised models, datasets, or plugins sneaking in through the build pipeline.
+
+With agents, identity itself is the supply chain. Agents carry OAuth tokens, session cookies, and A P I keys across long-running workflows. One over-privileged agent becomes a lateral-movement accelerant, and shared service principals make attribution and revocation extremely painful.
+
+My top mitigation is Microsoft Entra Agent I D. It gives every agent a unique, auditable identity, so each action is attributed and you can revoke a single agent without taking down the fleet.
+
+Then layer Defender for Cloud C I E M on top. It surfaces over-privileged agent identities and stale permissions, so you can right-size before an attacker does.

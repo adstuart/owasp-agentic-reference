@@ -1,0 +1,9 @@
+Threat number nine: Human-Agent Trust Exploitation.
+
+In the 2025 L L M Top Ten this was misinformation — a plausible but wrong output treated as fact by a human or downstream system.
+
+With agents the stakes jump. Users no longer just read the wrong answer, they approve the wrong action. Agents speak in fluent, confident, professional tone, and users rubber-stamp approvals on work they have not actually verified. Social engineering is now agent-to-human, at scale.
+
+My top mitigation is Azure A I Foundry Evaluations. Automated relevance, coherence and completeness scoring catches plausible-but-wrong answers before your users learn to over-trust them.
+
+Pair that with Copilot Studio human-in-the-loop. Built-in approval flows make sensitive actions pause for explicit confirmation.

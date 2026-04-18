@@ -1,0 +1,9 @@
+Threat number four: the Agentic Supply Chain.
+
+In the 2025 list, supply chain risk was about poisoned training data and malicious model weights.
+
+An agent's supply chain is much wider. It now includes third-party M C P servers, plugin registries, and orchestration frameworks. A compromised plugin runs with the agent's privileges, not the user's, and those orchestration libraries are a new, largely unaudited attack surface.
+
+My top mitigation here is the Azure A P I Center A I Registry. It gives you a vetted, governed catalog of approved M C P servers and tools. Agents can only discover and call what you have reviewed.
+
+Support that with GitHub Advanced Security. Dependency and secret scanning on your agent source code catches compromised packages and leaked credentials before they ship to production.

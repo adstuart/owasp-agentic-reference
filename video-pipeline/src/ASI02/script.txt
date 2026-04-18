@@ -1,0 +1,9 @@
+Threat number two: Tool Misuse and Exploitation.
+
+In the 2025 LLM Top Ten this sat under Sensitive Information Disclosure, where the model accidentally leaked P I I, credentials, or proprietary training data in its text output.
+
+Agents change the shape of the problem. They are given real tools on purpose — A P Is, file systems, mail, databases — and they abuse those tools in ways the developer never modelled. The call succeeds, the logs look clean, and the agent has just emailed your customer list to an attacker.
+
+My top mitigation is Azure A P I Management, configured as a GenAI gateway. Every tool call is validated, rate-limited, and policy-checked, and it gives you a single point of observability.
+
+Pair that with Microsoft Purview data loss prevention, so even a legitimate tool call cannot exfiltrate sensitive content.

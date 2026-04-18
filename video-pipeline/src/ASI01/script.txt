@@ -1,0 +1,11 @@
+Welcome to the OWASP Agentic AI Top Ten, where we map each new agentic risk back to its LLM predecessor and pick the top Microsoft mitigation.
+
+First up: Agent Goal Hijack.
+
+Previously, in the 2025 LLM Top Ten, this was prompt injection. A crafted input tricked the model into ignoring its instructions, and a human decided what to do with the wrong answer.
+
+In the agentic world, no human is in the loop. The agent autonomously chains tool calls, updates memory, and talks to other agents, so a single poisoned instruction triggers a cascade of real-world actions before anyone notices.
+
+My top Microsoft mitigation here is Azure AI Content Safety Prompt Shields. It detects both direct jailbreaks and indirect injections hidden in retrieved documents, and it runs before the agent reasons over the input.
+
+Back that up with Defender for Cloud AI threat protection for runtime anomaly detection on the live agent.

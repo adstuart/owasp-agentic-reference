@@ -1,0 +1,11 @@
+Threat number ten: Rogue Agents. The third of the new attack surfaces.
+
+The 2025 predecessor was unbounded consumption. Token floods, runaway costs, denial of wallet attacks on a single model.
+
+Rogue agents go further. They escape guardrails, spawn sub-agents, self-replicate, or operate outside their defined boundaries entirely. Shadow agents appear that nobody registered. Anomalous consumption is now an early rogue-agent signal, not just a surprise invoice.
+
+My top mitigation is Defender for Cloud A I threat protection. It ships fifteen plus detection types for rogue behaviour — guardrail evasion, self-replication, and off-policy tool use all surface as alerts.
+
+Combine with Entra Agent I D lifecycle management and shadow agent discovery, so unauthorised agents get caught before they act.
+
+That's the OWASP Agentic Top Ten. Full mapping is on GitHub.

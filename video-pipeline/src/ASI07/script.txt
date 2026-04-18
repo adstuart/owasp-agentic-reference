@@ -1,0 +1,9 @@
+Threat number seven: Insecure Inter-Agent Communication. This is a brand-new attack surface with no direct L L M equivalent.
+
+The closest 2025 risk was system prompt leakage, where the model's own system prompt leaked to the user and exposed instructions or secrets.
+
+Agents escalate that by talking to each other. Fleets of agents now send messages across A two A and M C P, and that mesh is a fresh attack surface. Spoofing, replay and agent-in-the-middle attacks all work, and there is no T L S by default convention yet.
+
+My top mitigation is Microsoft Entra Agent I D. Every agent gets a cryptographic identity, so inter-agent calls are mutually authenticated, not just trusted by name.
+
+Back it with Azure A P I Management enforcing m T L S and J W T validation on every inter-agent hop.

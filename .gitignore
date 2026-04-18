@@ -1,0 +1,8 @@
+
+# OWASP threat video pipeline (regenerable)
+video-pipeline/src/**/audio/
+video-pipeline/src/**/renders/
+video-pipeline/out/
+video-pipeline/.venv/
+video-pipeline/node_modules/
+video-pipeline/**/__pycache__/

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <title>ASI01 — Agent Goal Hijack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+/* OWASP Agentic Threat Videos — shared theme.
+   Inline this file into each composition's <style> via the build pipeline
+   OR link it as ../../shared/theme.css from each ASI index.html (HyperFrames
+   bundles local assets). We use the second option so each composition is
+   self-contained but shares one stylesheet. */
+
+:root {
+  --bg-0: #0b0f14;
+  --bg-1: #111822;
+  --bg-2: #1b2532;
+  --ink-0: #f5f7fa;
+  --ink-1: #c7d0da;
+  --ink-2: #8795a5;
+  --ms-blue: #0078d4;
+  --ms-blue-dim: #1a4d7a;
+  --accent-red: #c62828;
+  --accent-red-dim: #6b1818;
+  --rule: rgba(255, 255, 255, 0.08);
+  --shadow-glow: 0 0 60px rgba(0, 120, 212, 0.25);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 1920px; height: 1080px; overflow: hidden;
+  background: var(--bg-0);
+  color: var(--ink-0);
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.scene {
+  position: absolute; inset: 0;
+  width: 1920px; height: 1080px;
+  display: flex; flex-direction: column;
+  padding: 120px 160px;
+  box-sizing: border-box;
+  background: radial-gradient(ellipse at 50% 20%, var(--bg-1) 0%, var(--bg-0) 70%);
+}
+
+.kicker {
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  font-size: 28px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ms-blue);
+}
+.scene.red .kicker { color: var(--accent-red); }
+
+.headline {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 900;
+  font-size: 120px; line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--ink-0);
+  margin-top: 24px;
+}
+.headline.small { font-size: 84px; }
+
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px; font-weight: 400;
+  color: var(--ink-2);
+  margin-top: 28px; letter-spacing: 0.02em;
+}
+
+.body-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 44px; line-height: 1.35;
+  color: var(--ink-1);
+  max-width: 1500px;
+  margin-top: 40px;
+}
+
+.body-text b, .body-text strong {
+  font-weight: 700;
+  color: var(--ink-0);
+}
+
+.bullet-list {
+  display: flex; flex-direction: column;
+  gap: 26px;
+  margin-top: 60px;
+  max-width: 1500px;
+}
+.bullet {
+  display: flex; align-items: flex-start; gap: 28px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 40px; line-height: 1.35;
+  color: var(--ink-1);
+}
+.bullet .dot {
+  flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--ms-blue);
+  margin-top: 18px;
+  box-shadow: 0 0 14px rgba(0, 120, 212, 0.6);
+}
+.scene.red .bullet .dot {
+  background: var(--accent-red);
+  box-shadow: 0 0 14px rgba(198, 40, 40, 0.6);
+}
+
+.mitigation-card {
+  display: flex; flex-direction: column;
+  padding: 48px 56px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(0,120,212,0.18) 0%, rgba(0,120,212,0.04) 100%);
+  border: 2px solid rgba(0, 120, 212, 0.45);
+  box-shadow: var(--shadow-glow);
+  max-width: 1500px;
+  margin-top: 36px;
+}
+.mitigation-card .product {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 30px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ms-blue); font-weight: 600;
+}
+.scene.red .mitigation-card { /* mitigations are always Microsoft blue even on red-accent scenes */
+  background: linear-gradient(135deg, rgba(0,120,212,0.18) 0%, rgba(0,120,212,0.04) 100%);
+  border-color: rgba(0, 120, 212, 0.45);
+}
+.mitigation-card .name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 800;
+  font-size: 56px; line-height: 1.1;
+  color: var(--ink-0);
+  margin-top: 12px;
+}
+.mitigation-card .why {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  font-size: 32px; line-height: 1.4;
+  color: var(--ink-1);
+  margin-top: 18px;
+}
+
+.evolve-row {
+  display: flex; align-items: center; gap: 60px;
+  margin-top: 80px;
+}
+.evolve-side {
+  flex: 1;
+  padding: 40px 48px;
+  border-radius: 18px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.02);
+}
+.evolve-side.agent {
+  border-color: rgba(0, 120, 212, 0.5);
+  background: rgba(0, 120, 212, 0.08);
+}
+.scene.red .evolve-side.agent {
+  border-color: rgba(198, 40, 40, 0.55);
+  background: rgba(198, 40, 40, 0.1);
+}
+.evolve-side .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+.evolve-side .label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700; font-size: 46px; line-height: 1.15;
+  color: var(--ink-0);
+  margin-top: 14px;
+}
+.evolve-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 72px; font-weight: 500;
+  color: var(--ms-blue);
+}
+.scene.red .evolve-arrow { color: var(--accent-red); }
+
+.outro {
+  text-align: center;
+  align-items: center; justify-content: center;
+}
+.outro .big {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 900; font-size: 88px; letter-spacing: -0.02em;
+  color: var(--ink-0);
+}
+.outro .url {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 36px; color: var(--ms-blue); margin-top: 32px;
+  letter-spacing: 0.04em;
+}
+.scene.red .outro .url { color: var(--accent-red); }
+
+.scene-footer {
+  position: absolute; left: 160px; right: 160px; bottom: 80px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px; letter-spacing: 0.1em;
+  color: var(--ink-2); text-transform: uppercase;
+  opacity: 0.7;
+  border-top: 1px solid var(--rule);
+  padding-top: 24px;
+}
+
+.accent-bar {
+  position: absolute; top: 0; left: 0;
+  width: 12px; height: 100%;
+  background: var(--ms-blue);
+}
+.scene.red .accent-bar { background: var(--accent-red); }
+
+
+/* composition-scoped tweaks */
+.scene { z-index: 1; }
+body { background: var(--bg-0); }
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+</head>
+<body>
+
+<div id="root" data-composition-id="main" data-start="0" data-duration="60.0" data-width="1920" data-height="1080">
+
+  <audio id="narration" src="audio/narration.wav" data-start="0" data-duration="58.26" data-track-index="0" data-volume="1"></audio>
+
+  <!-- Scene 1: title card -->
+  <div id="s1" class="clip scene " data-start="0.0" data-duration="10.8" data-track-index="1">
+    <div class="accent-bar"></div>
+    <div class="kicker">OWASP Agentic Top-10 / 2026</div>
+    <div class="headline">ASI01</div>
+    <div class="headline small" style="margin-top:16px">Agent Goal Hijack</div>
+    <div class="subtitle">Threat 1 of 10 — mapped to its 2025 LLM predecessor<br/>with Adam's pick of top Microsoft mitigation</div>
+    <div class="scene-footer"><span>adstuart / owasp-agentic-reference</span><span>ASI01</span></div>
+  </div>
+
+  <!-- Scene 2: LLM 2025 predecessor -->
+  <div id="s2" class="clip scene " data-start="10.4" data-duration="13.9" data-track-index="2">
+    <div class="accent-bar"></div>
+    <div class="kicker">Previously in the LLM Top-10 / 2025</div>
+    <div class="headline small" style="margin-top:20px">Prompt Injection</div>
+    <div class="body-text">A crafted input tricks a model into ignoring its instructions, and a human chooses what to do with the wrong answer.</div>
+    <div class="scene-footer"><span>ASI01 — Previous Generation</span><span>LLM Top-10 · 2025</span></div>
+  </div>
+
+  <!-- Scene 3: evolution -->
+  <div id="s3" class="clip scene " data-start="23.9" data-duration="16.4" data-track-index="1">
+    <div class="accent-bar"></div>
+    <div class="kicker">How it evolves</div>
+    <div class="headline small" style="margin-top:20px">Agent Goal Hijack</div>
+    <div class="evolve-row">
+      <div class="evolve-side">
+        <div class="tag">LLM · 2025</div>
+        <div class="label">Single model reasons, human decides</div>
+      </div>
+      <div class="evolve-arrow">&#x2192;</div>
+      <div class="evolve-side agent">
+        <div class="tag">Agent · 2026</div>
+        <div class="label">Agent autonomously chains actions</div>
+      </div>
+    </div>
+    <div class="bullet-list">
+      <div class="bullet" id="b1"><div class="dot"></div><div>No human in the loop between the poisoned instruction and the side-effect</div></div>
+      <div class="bullet" id="b2"><div class="dot"></div><div>The agent calls tools, writes to memory, and messages peer agents</div></div>
+      <div class="bullet" id="b3"><div class="dot"></div><div>One injection fans out into a cascade of real-world actions</div></div>
+    </div>
+    <div class="scene-footer"><span>ASI01 — Evolution</span><span>agentic · 2026</span></div>
+  </div>
+
+  <!-- Scene 4: mitigation(s) -->
+  <div id="s4" class="clip scene " data-start="39.9" data-duration="14.8" data-track-index="2">
+    <div class="accent-bar"></div>
+    <div class="kicker">Top Microsoft mitigation</div>
+    <div class="headline small" style="margin-top:20px">Defence of choice</div>
+        <div class="mitigation-card" id="mit1">
+      <div class="product">Azure AI Content Safety</div>
+      <div class="name">Prompt Shields</div>
+      <div class="why">Detects both direct jailbreaks and indirect injections hidden in retrieved documents — before the agent reasons over the input.</div>
+    </div>
+    <div class="mitigation-card" id="mit2">
+      <div class="product">Microsoft Defender for Cloud</div>
+      <div class="name">AI Threat Protection</div>
+      <div class="why">Runtime anomaly and jailbreak detection on the live agent for when a new attack pattern slips past filters.</div>
+    </div>
+    <div class="scene-footer"><span>ASI01 — Mitigation</span><span>microsoft.com/security</span></div>
+  </div>
+
+  <!-- Scene 5: closing -->
+  <div id="s5" class="clip scene  outro" data-start="54.3" data-duration="5.7" data-track-index="1">
+    <div class="accent-bar"></div>
+    <div class="kicker" style="text-align:center">Full mapping</div>
+    <div class="big">ASI01 — Agent Goal Hijack</div>
+    <div class="url">github.com/adstuart/owasp-agentic-reference</div>
+  </div>
+
+</div>
+
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+
+// -------- Scene 1: title card (0.0s) --------
+tl.from("#s1", { opacity: 0, duration: 0.5, ease: "sine.inOut" }, 0.0);
+tl.from("#s1 .kicker", { y: -20, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.0 + 0.3);
+tl.from("#s1 .headline", { y: 40, opacity: 0, duration: 0.8, ease: "expo.out" }, 0.0 + 0.5);
+tl.from("#s1 .headline.small", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.0 + 0.9);
+tl.from("#s1 .subtitle", { opacity: 0, y: 20, duration: 0.6, ease: "sine.out" }, 0.0 + 1.4);
+tl.from("#s1 .scene-footer", { opacity: 0, duration: 0.5 }, 0.0 + 1.9);
+tl.from("#s1 .accent-bar", { scaleY: 0, transformOrigin: "top", duration: 0.5, ease: "power3.out" }, 0.0 + 0.1);
+
+// -------- Scene 2: predecessor (10.4s) --------
+tl.from("#s2", { opacity: 0, duration: 0.5, ease: "sine.inOut" }, 10.4);
+tl.from("#s2 .accent-bar", { scaleY: 0, transformOrigin: "top", duration: 0.5, ease: "power3.out" }, 10.4 + 0.05);
+tl.from("#s2 .kicker", { x: -30, opacity: 0, duration: 0.5, ease: "power2.out" }, 10.4 + 0.2);
+tl.from("#s2 .headline", { y: 40, opacity: 0, duration: 0.7, ease: "expo.out" }, 10.4 + 0.4);
+tl.from("#s2 .body-text", { opacity: 0, y: 20, duration: 0.8, ease: "power2.out" }, 10.4 + 0.8);
+tl.from("#s2 .scene-footer", { opacity: 0, duration: 0.5 }, 10.4 + 1.2);
+
+// -------- Scene 3: evolution (23.9s) --------
+tl.from("#s3", { opacity: 0, duration: 0.5, ease: "sine.inOut" }, 23.9);
+tl.from("#s3 .accent-bar", { scaleY: 0, transformOrigin: "top", duration: 0.5, ease: "power3.out" }, 23.9 + 0.05);
+tl.from("#s3 .kicker", { y: -20, opacity: 0, duration: 0.5, ease: "power2.out" }, 23.9 + 0.2);
+tl.from("#s3 .headline", { y: 30, opacity: 0, duration: 0.6, ease: "expo.out" }, 23.9 + 0.4);
+tl.from("#s3 .evolve-row .evolve-side:not(.agent)", { x: -60, opacity: 0, duration: 0.6, ease: "power3.out" }, 23.9 + 0.9);
+tl.from("#s3 .evolve-arrow", { scale: 0, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 23.9 + 1.3);
+tl.from("#s3 .evolve-side.agent", { x: 60, opacity: 0, duration: 0.6, ease: "power3.out" }, 23.9 + 1.4);
+tl.from("#s3 #b1", { x: -30, opacity: 0, duration: 0.5, ease: "power2.out" }, 23.9 + 2.4);
+tl.from("#s3 #b2", { x: -30, opacity: 0, duration: 0.5, ease: "power2.out" }, 23.9 + 2.8);
+tl.from("#s3 #b3", { x: -30, opacity: 0, duration: 0.5, ease: "power2.out" }, 23.9 + 3.2);
+tl.from("#s3 .scene-footer", { opacity: 0, duration: 0.5 }, 23.9 + 3.8);
+
+// -------- Scene 4: mitigation (39.9s) --------
+tl.from("#s4", { opacity: 0, duration: 0.5, ease: "sine.inOut" }, 39.9);
+tl.from("#s4 .accent-bar", { scaleY: 0, transformOrigin: "top", duration: 0.5, ease: "power3.out" }, 39.9 + 0.05);
+tl.from("#s4 .kicker", { y: -20, opacity: 0, duration: 0.5, ease: "power2.out" }, 39.9 + 0.2);
+tl.from("#s4 .headline", { y: 30, opacity: 0, duration: 0.6, ease: "expo.out" }, 39.9 + 0.4);
+tl.from("#mit1", { y: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 39.9 + 1.0);
+tl.from("#mit2", { y: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 39.9 + 2.2);
+tl.from("#s4 .scene-footer", { opacity: 0, duration: 0.5 }, 39.9 + 3.5);
+
+// -------- Scene 5: closing (54.3s) --------
+tl.from("#s5", { opacity: 0, duration: 0.6, ease: "sine.inOut" }, 54.3);
+tl.from("#s5 .accent-bar", { scaleY: 0, transformOrigin: "top", duration: 0.5, ease: "power3.out" }, 54.3 + 0.05);
+tl.from("#s5 .kicker", { opacity: 0, duration: 0.5, ease: "sine.out" }, 54.3 + 0.2);
+tl.from("#s5 .big", { scale: 0.92, opacity: 0, duration: 0.7, ease: "power3.out" }, 54.3 + 0.5);
+tl.from("#s5 .url", { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" }, 54.3 + 1.0);
+// final fade-out is allowed on the last scene
+tl.to("#s5", { opacity: 0, duration: 0.6, ease: "sine.inOut" }, 59.4);
+
+window.__timelines["main"] = tl;
+</script>
+
+</body>
+</html>
