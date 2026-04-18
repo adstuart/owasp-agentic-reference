@@ -8,42 +8,61 @@ all 10 in one invocation to avoid repeated warmup.
 """
 from __future__ import annotations
 
+import os
 import sys
 import time
 import urllib.request
 from pathlib import Path
 
-# Import cnv_direct from the private azure-video-factory repo.
 sys.path.insert(0, str(Path.home() / "azure-video-factory" / "scripts"))
 import cnv_direct  # type: ignore
 
-PROXY = "https://app-cnv-voice-proxy.azurewebsites.net"
+from azure.identity import DefaultAzureCredential  # type: ignore
+import requests  # type: ignore
+
+SPEECH_HOST = "speech-cnv-adam-voice.cognitiveservices.azure.com"
+V2_ENDPOINT_ID = "d55b6dc0-cdd2-4288-84e1-2255cee85b88"
+API_VERSION = "2024-02-01-preview"
 
 
-def _proxy_call(path: str, method: str = "GET") -> str:
-    req = urllib.request.Request(f"{PROXY}{path}", method=method)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return r.read().decode()
+def _token() -> str:
+    return DefaultAzureCredential().get_token("https://cognitiveservices.azure.com/.default").token
+
+
+def _endpoint_status() -> str:
+    url = f"https://{SPEECH_HOST}/customvoice/endpoints/{V2_ENDPOINT_ID}?api-version={API_VERSION}"
+    r = requests.get(url, headers={"Authorization": f"Bearer {_token()}"}, timeout=15)
+    r.raise_for_status()
+    return r.json().get("status", "Unknown")
 
 
 def ensure_started() -> None:
-    """Block until V2 endpoint is Succeeded (running). Warmup takes ~90s."""
-    print("→ ensuring V2 endpoint is running...")
-    _proxy_call("/api/endpoint/start?model=v2", method="POST")
-    for _ in range(30):
-        body = _proxy_call("/api/endpoint/status?model=v2")
-        if '"Succeeded"' in body:
-            print(f"  ✅ {body}")
-            return
+    """Resume V2 endpoint if not running; block until Succeeded. Warmup ~90s."""
+    status = _endpoint_status()
+    print(f"→ V2 endpoint status: {status}")
+    if status == "Succeeded":
+        return
+    print("→ resuming endpoint...")
+    url = f"https://{SPEECH_HOST}/customvoice/endpoints/{V2_ENDPOINT_ID}:resume?api-version={API_VERSION}"
+    r = requests.post(url, headers={"Authorization": f"Bearer {_token()}"}, timeout=30)
+    r.raise_for_status()
+    for _ in range(36):
         time.sleep(10)
-    raise RuntimeError("V2 endpoint did not reach Succeeded within 5 minutes")
+        s = _endpoint_status()
+        print(f"  …{s}")
+        if s == "Succeeded":
+            return
+    raise RuntimeError("V2 endpoint did not reach Succeeded within 6 minutes")
 
 
 def suspend() -> None:
-    """Suspend V2 endpoint to stop $4.04/hr billing."""
-    print("→ suspending V2 endpoint (stops $4.04/hr billing)...")
+    """Suspend V2 endpoint — stops $4.04/hr billing."""
+    print("→ suspending V2 endpoint...")
     try:
-        print(f"  {_proxy_call('/api/endpoint/stop?model=v2', method='POST')}")
+        url = f"https://{SPEECH_HOST}/customvoice/endpoints/{V2_ENDPOINT_ID}:suspend?api-version={API_VERSION}"
+        r = requests.post(url, headers={"Authorization": f"Bearer {_token()}"}, timeout=30)
+        r.raise_for_status()
+        print(f"  ✅ suspend accepted (HTTP {r.status_code})")
     except Exception as e:
         print(f"  ⚠ suspend failed: {e} — CHECK MANUALLY")
 
