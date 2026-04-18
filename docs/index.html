@@ -17,11 +17,13 @@
     body { color: #e6edf3; background: #0d1117; }
     a { color: #58a6ff; }
     .card { background: #161b22; border-color: #30363d; }
-    .meta { color: #8b949e; }
+    .card h2 { color: #f0f6fc; }
+    .meta { color: #c9d1d9; }
+    .lede { color: #c9d1d9; }
   }
   header { margin-bottom: 2rem; }
   h1 { margin: 0 0 .25rem; font-size: 1.75rem; }
-  .lede { margin: 0; opacity: .8; }
+  .lede { margin: 0; color: #424a53; }
   .back { display: inline-block; margin-top: .75rem; font-size: .9rem; }
   .grid {
     display: grid; gap: 1.5rem;
@@ -31,10 +33,13 @@
     border: 1px solid #d0d7de; border-radius: 8px; padding: 1rem;
     background: #f6f8fa;
   }
-  .card h2 { margin: 0 0 .5rem; font-size: 1.05rem; }
+  .card h2 { margin: 0 0 .5rem; font-size: 1.05rem; color: #0d1117; font-weight: 600; }
   .card video { width: 100%; height: auto; border-radius: 6px; background: #000; display: block; }
-  .meta { font-size: .85rem; color: #57606a; margin: .5rem 0 0; }
-  footer { margin-top: 2rem; font-size: .85rem; opacity: .75; }
+  .meta { font-size: .9rem; color: #424a53; margin: .5rem 0 0; }
+  footer { margin-top: 2rem; font-size: .85rem; color: #424a53; }
+  @media (prefers-color-scheme: dark) {
+    footer { color: #c9d1d9; }
+  }
 </style>
 </head>
 <body>
@@ -47,52 +52,52 @@
 <main class="grid">
   <article class="card">
     <h2>ASI01 — Agent Goal Hijack</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI01.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI01.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI01.mp4"></video>
     <p class="meta">Prompt injection that hijacks an autonomous agent into chaining harmful actions.</p>
   </article>
   <article class="card">
     <h2>ASI02 — Tool Misuse &amp; Exploitation</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI02.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI02.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI02.mp4"></video>
     <p class="meta">Agents abuse legitimately granted tools in unintended or dangerous ways.</p>
   </article>
   <article class="card">
     <h2>ASI03 — Identity &amp; Privilege Abuse</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI03.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI03.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI03.mp4"></video>
     <p class="meta">Agents inherit, escalate, or misuse identity tokens and access privileges.</p>
   </article>
   <article class="card">
     <h2>ASI04 — Agentic Supply Chain</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI04.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI04.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI04.mp4"></video>
     <p class="meta">Compromised plugins, MCP servers, or orchestration layers in the agent stack.</p>
   </article>
   <article class="card">
     <h2>ASI05 — Unexpected Code Execution</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI05.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI05.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI05.mp4"></video>
     <p class="meta">Agents dynamically generate and execute code, risking RCE or sandbox escape.</p>
   </article>
   <article class="card">
     <h2>ASI06 — Memory &amp; Context Poisoning</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI06.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI06.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI06.mp4"></video>
     <p class="meta">Persistent agent memory or RAG stores poisoned with adversarial content.</p>
   </article>
   <article class="card">
     <h2>ASI07 — Insecure Inter-Agent Communication</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI07.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI07.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI07.mp4"></video>
     <p class="meta">Spoofing, replay, or man-in-the-middle attacks on agent-to-agent messaging.</p>
   </article>
   <article class="card">
     <h2>ASI08 — Cascading Failures</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI08.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI08.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI08.mp4"></video>
     <p class="meta">A single bad input propagates unchecked across interconnected agent systems.</p>
   </article>
   <article class="card">
     <h2>ASI09 — Human-Agent Trust Exploitation</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI09.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI09.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI09.mp4"></video>
     <p class="meta">Users blindly trust agent outputs, enabling social engineering and manipulation.</p>
   </article>
   <article class="card">
     <h2>ASI10 — Rogue Agents</h2>
-    <video controls preload="metadata" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI10.mp4"></video>
+    <video controls preload="metadata" poster="thumbs/ASI10.jpg" src="https://raw.githubusercontent.com/adstuart/owasp-agentic-reference/master/videos/ASI10.mp4"></video>
     <p class="meta">Agents escape guardrails, self-replicate, or operate outside defined boundaries.</p>
   </article>
 </main>
