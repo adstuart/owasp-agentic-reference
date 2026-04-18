@@ -1,6 +1,6 @@
 # OWASP Agentic Top-10 — Narrated Threat Videos
 
-Ten ~60s narrated explainer videos, one per OWASP Agentic AI Top-10 threat (2026), mapped to their OWASP LLM Top-10 (2025) predecessor and Adam's pick of top Microsoft mitigations.
+Ten ~60s narrated explainer videos, one per OWASP Agentic AI Top-10 threat (2026), mapped to their OWASP LLM Top-10 (2025) predecessor and the recommended Microsoft mitigations.
 
 Source material: [adstuart/owasp-agentic-reference](https://github.com/adstuart/owasp-agentic-reference).
 

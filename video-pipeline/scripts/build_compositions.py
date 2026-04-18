@@ -65,7 +65,7 @@ body {{ background: var(--bg-0); }}
     <div class="kicker">OWASP Agentic Top-10 / 2026</div>
     <div class="headline">{asi_id}</div>
     <div class="headline small" style="margin-top:16px">{threat_title}</div>
-    <div class="subtitle">Threat {asi_num} of 10 — mapped to its 2025 LLM predecessor<br/>with Adam's pick of top Microsoft mitigation</div>
+    <div class="subtitle">Threat {asi_num} of 10 — mapped to its 2025 LLM predecessor<br/>→ recommended Microsoft mitigation</div>
     <div class="scene-footer"><span>adstuart / owasp-agentic-reference</span><span>{asi_id}</span></div>
   </div>
 
